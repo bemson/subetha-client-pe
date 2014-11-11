@@ -50,22 +50,21 @@ While the peer-event object contains lots of useful information, it's most impor
 Below demonstrates a callback which tracks the number of times each peer sends a given event.
 
 ```js
-var client = new Subetha.Client();
+var client = new Subetha.Client().open('flu@public');
 
-client.open('flu@public')
-  .on('ah... ah-choo!!', function (evt) {
-    var peer = evt.peer;
+client.on('ah... ah-choo!!', function (evt) {
+  var peer = evt.peer;
 
-    // initalize "cnt" member, if not present
-    if (!peer.hasOwnProperty('cnt')) {
-      peer.cnt = 0;
-    }
+  // initalize "cnt" member, if not present
+  if (!peer.hasOwnProperty('cnt')) {
+    peer.cnt = 0;
+  }
 
-    // increment count
-    peer.cnt++;
+  // increment count
+  peer.cnt++;
 
-    console.log('peer %s sneezes: %d', peer.id, peer.cnt);
-  });
+  console.log('peer %s sneezes: %d', peer.id, peer.cnt);
+});
 ```
 
 
