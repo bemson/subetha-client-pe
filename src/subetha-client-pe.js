@@ -15,35 +15,32 @@
     ;
 
     function transmitEvent(client, type, args, peers) {
-      return !!value &&
-        typeof value === 'string' &&
+      return !!type &&
+        typeof type == 'string' &&
+        type.substring(0,2) != '::' &&
         client._transmit(
           'event',
           peers,
           {
             type: type,
-            data: args.length > 1 ? [].concat(args) : []
+            data: args.length > 1 ? protoSlice.call(args, 1) : []
           }
         );
     }
 
     // broadcast event to peers
     Subetha.Client.prototype.emit = function (name) {
-      var args = arguments;
-
       return transmitEvent(
         this,
         name,
-        args.length > 1 ? protoSlice.call(args, 1) : [],
+        arguments,
         0
       );
     };
 
     // transmit event to this peer
     Subetha.Peer.prototype.send = function (name) {
-      var
-        peer = this,
-        args = arguments;
+      var peer = this;
 
       // exit if peer is disabled
       if (!peer.state) {
@@ -52,7 +49,7 @@
       return transmitEvent(
         peer._client,
         name,
-        args.length > 1 ? protoSlice.call(args, 1) : [],
+        arguments,
         peer.id
       );
     };
@@ -69,7 +66,7 @@
     initSubEthaClientPE();
   }
 }(
-  typeof define === 'function',
+  typeof define == 'function',
   typeof exports != 'undefined',
   this
 );
