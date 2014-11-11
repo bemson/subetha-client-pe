@@ -10,7 +10,7 @@
     "pubsub"
   ],
   "dependencies": {
-    "bemson/subetha-client": "0.0.x"
+    "bemson/subetha-client": "0.x"
   },
   "development": {},
   "license": "Apache-2.0",
