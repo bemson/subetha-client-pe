@@ -1,0 +1,21 @@
+{
+  "name": "subetha-client-pe",
+  "repository": "bemson/subetha-client-pe",
+  "description": "Communicate with SubEtha peers using arbitrary events",
+  "version": "0.0.0-alpha",
+  "keywords": [
+    "subetha",
+    "client",
+    "events",
+    "pubsub"
+  ],
+  "dependencies": {
+    "bemson/subetha-client": "0.0.x"
+  },
+  "development": {},
+  "license": "Apache-2.0",
+  "main": "src/subetha-client-pe.js",
+  "scripts": [
+    "src/subetha-client-pe.js"
+  ]
+}
