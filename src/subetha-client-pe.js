@@ -1,5 +1,5 @@
 /*!
- * SubEtha Peer Events v0.0.0-alpha
+ * SubEtha Peer Events
  * http://github.com/bemson/subetha-client-pe/
  *
  * Copyright 2014, Bemi Faison
