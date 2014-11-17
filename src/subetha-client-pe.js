@@ -11,15 +11,24 @@
 
     var
       Subetha = ((inCJS || inAMD) ? require('subetha-client') : scope.Subetha),
-      protoSlice = Array.prototype.slice
+      protoSlice = Array.prototype.slice,
+      MSG_TYPE_EVENT = 'subetha/event'
     ;
 
+    function isFullString(value) {
+      return value && typeof value === 'string';
+    }
+
+    // fail when not a (or empty) string or begins with "::"
+    function startsWithNetworkPrefix(str) {
+      return str.substring(0,2) == '::';
+    }
+
     function transmitEvent(client, type, args, peers) {
-      return !!type &&
-        typeof type == 'string' &&
-        type.substring(0,2) != '::' &&
+      return isFullString(type) &&
+        !startsWithNetworkPrefix(type) &&
         client._transmit(
-          'event',
+          MSG_TYPE_EVENT,
           peers,
           {
             type: type,
@@ -52,6 +61,34 @@
         arguments,
         peer.id
       );
+    };
+
+    // handle incoming "subetha/event" message
+    Subetha.msgType[MSG_TYPE_EVENT] = function (client, peer, payload, details) {
+      var
+        args = payload.data,
+        eventName = payload.type,
+        customEvent;
+
+      if (!isFullString(eventName) || startsWithNetworkPrefix(eventName)) {
+        return;
+      }
+
+      // define custom event
+      customEvent = {
+        data: [].concat(args),
+        id: details.id,
+        peer: peer,
+        timeStamp: details.timeStamp,
+        type: eventName
+      };
+
+      // invoke fire based on presence of custom args
+      if (args.length) {
+        client.fire.apply(client, [eventName, customEvent].concat(args));
+      } else {
+        client.fire(eventName, customEvent);
+      }
     };
 
     return Subetha;
