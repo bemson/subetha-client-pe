@@ -82,9 +82,8 @@ Callbacks receive the following _peer-event object_, along with any additonal pa
   * `data` - An array of any additional arguments passed to the `#emit()` or `#send()` method.
   * `id` - Unique identifier for this event.
   * `peer` - The peer that sent this message.
-  * `sent`:  The time (as a Date instance) when the message was sent.
   * `timeStamp`: The time (in milliseconds) when the event occurred.
-  * `type` - The original string passed to the `#emit()` or `#send()` method.
+  * `type` - The original string passed to `#emit()` or `#send()`.
 
 #### Client#emit()
 
