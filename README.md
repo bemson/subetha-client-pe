@@ -2,7 +2,6 @@
 
 Communicate with SubEtha peers using arbitrary events
 
-version 0.0.0-alpha
 by Bemi Faison
 
 ## Description
